@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <style>
+    div{
+      width: 500px;
+      height: 500px;
+      background-color: pink;
+    }
+  </style>
+  <script src="jquery-1.12.1.js"></script>
+  <script>
+    $(function(){
+      //为document添加键盘按下事件
+      $(document).keydown(function(e){
+        //通过按键的字符编码来设置div相应的类样式
+        switch(e.keyCode){
+          case 65: $("#dv").css("background","#752");break;
+          case 66: $("#dv").css("background","#4d2");break;
+          case 67: $("#dv").css("background","#7ab");break;
+          case 68: $("#dv").css("background","#089");break;
+          case 69: $("#dv").css("background","#7a2");break;
+          case 70: $("#dv").css("background","#af2");break;
+          case 71: $("#dv").css("background","#896");break;
+          case 72: $("#dv").css("background","#f0f");break;
+          case 73: $("#dv").css("background","#dbe");break;
+          case 74: $("#dv").css("background","#994");break;
+          case 75: $("#dv").css("background","#630");break;
+        }
+      });
+    });
+  </script>
+
+</head>
+<body>
+<div id="dv"></div>
+
+</body>
+</html>

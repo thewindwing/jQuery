@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>哈哈</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        .box {
+            width: 350px;
+            height: 350px;
+            margin: 100px;
+            border: 1px solid #ccc;
+            position: relative;
+        }
+
+        .big {
+            width: 400px;
+            height: 400px;
+            position: absolute;
+            top: 0;
+            left: 360px;
+            border: 1px solid #ccc;
+            overflow: hidden;
+            display: none;
+        }
+
+        .mask {
+            width: 175px;
+            height: 175px;
+            background: rgba(255, 255, 0, 0.4);
+            position: absolute;
+            top: 0px;
+            left: 0px;
+            cursor: move;
+            display: none;
+        }
+
+        .small {
+            position: relative;
+        }
+    </style>
+    <script src="jquery-1.12.1.js"></script>
+    <script>
+        //页面加载完成后执行
+        $(function () {
+//为小层添加鼠标进入事件
+            $("#box .small").mouseenter(function () {
+                //显示遮挡层，和大层
+                $("#box .mask").css("display", "block");
+                $("#box .big").css("display", "block");
+            }).mousemove(function (e) { //为小层添加鼠标移动事件
+                //遮挡层跟着鼠标走
+                //获取鼠标相对于页面左边和上面的距离
+                var x = e.pageX - $(".mask").width() / 2 - 100;
+                var y = e.pageY - $(".mask").height() / 2 - 100;
+                //设置x和y的最小和最大边界
+                x = x <= 0 ? 0 : x;
+                y = y <= 0 ? 0 : y;
+                x = x >= $(".small").width() - $(".mask").width() ? $(".small").width() - $(".mask").width() : x;
+                y = y >= $(".small").height() - $(".mask").height() ? $(".small").height() - $(".mask").height() : y;
+
+                $(".mask").css({"left": x + "px", "top": y + "px"});
+                //遮挡层移动时，大图图片显示对应的图片
+                //小图移动的距离/小图可移动的最大距离=大图移动的距离、/大图可移动的最大距离
+            });
+        });
+    </script>
+</head>
+<body>
+<div class="box" id="box">
+    <div class="small"><!--小层-->
+        <img src="images/small.png" width="350" alt=""/>
+
+        <div class="mask"></div>
+        <!--遮挡层-->
+    </div>
+    <!--小图-->
+    <div class="big"><!--大层-->
+        <img src="images/big.jpg" width="800" alt=""/><!--大图-->
+    </div>
+    <!--大图-->
+</div>
+
+
+</body>
+</html>

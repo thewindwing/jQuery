@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>旋转木马轮播图</title>
+    <link rel="stylesheet" href="css/css.css"/>
+    <script src="jquery-1.12.1.js"></script>
+    <script>
+
+        var config = [
+            {
+                width: 400,
+                top: 20,
+                left: 50,
+                opacity: 0.2,
+                zIndex: 2
+            },//0
+            {
+                width: 600,
+                top: 70,
+                left: 0,
+                opacity: 0.8,
+                zIndex: 3
+            },//1
+            {
+                width: 800,
+                top: 100,
+                left: 200,
+                opacity: 1,
+                zIndex: 4
+            },//2
+            {
+                width: 600,
+                top: 70,
+                left: 600,
+                opacity: 0.8,
+                zIndex: 3
+            },//3
+            {
+                width: 400,
+                top: 20,
+                left: 750,
+                opacity: 0.2,
+                zIndex: 2
+            }//4
+        ];
+        $(function () {
+            //页面加载时，图片散开
+            slide();
+            function slide() {
+                $("#slide li").each(function (x, y) {
+                    $(y).animate(config[x], 200, function () {
+                        flag = true;
+                    });
+                });
+            }
+
+            var flag = true;
+            //为最外层添加鼠标进入和鼠标离开事件
+            $("#wrap").mouseenter(function () {
+                //焦点显示
+                $("#arrow").fadeTo(1000, 1);
+            }).mouseleave(function () {
+                //焦点隐藏
+                $("#arrow").fadeTo(1000, 0);
+            });
+            //为左按钮添加点击事件
+            $("#arrLeft").click(function () {
+                //将数组最后一项移到数组第一项
+                config.unshift(config.pop());
+                //循环为每个li添加新数组的值
+                if (flag) {//上一个缓动完成后执行
+                    flag = false;
+                    slide();
+                }
+            });
+            //为右按钮添加点击事件
+            $("#arrRight").click(function () {
+                //将数组第一项移到数组最后一项
+                config.push(config.shift());
+                if (flag) {
+                    flag = false;
+                    slide();
+                }
+            });
+        });
+    </script>
+</head>
+<body>
+<div class="wrap" id="wrap">
+    <div class="slide" id="slide">
+        <ul>
+            <li><a href="#"><img src="images/slidepic1.jpg" alt=""/></a></li>
+            <li><a href="#"><img src="images/slidepic2.jpg" alt=""/></a></li>
+            <li><a href="#"><img src="images/slidepic3.jpg" alt=""/></a></li>
+            <li><a href="#"><img src="images/slidepic4.jpg" alt=""/></a></li>
+            <li><a href="#"><img src="images/slidepic5.jpg" alt=""/></a></li>
+        </ul>
+        <div class="arrow" id="arrow">
+            <a href="javascript:;" class="prev" id="arrLeft"></a>
+            <a href="javascript:;" class="next" id="arrRight"></a>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

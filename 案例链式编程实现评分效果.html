@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>五角星评分案例</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        .comment {
+            font-size: 40px;
+            color: yellow;
+        }
+
+        .comment li {
+            float: left;
+            cursor: pointer;
+        }
+
+        ul {
+            list-style: none;
+        }
+    </style>
+    <script src="jquery-1.12.1.js"></script>
+    <script>
+        //页面基本元素加载完成后执行
+        $(function () {
+            //获取li，添加鼠标进入和点击事件，鼠标离开事件
+            $(".comment>li").mouseenter(function () {
+                //当前和之前的星星变成实色，后面的所有变成空心
+                $(this).text("★").prevAll().text("★").end().nextAll().text("☆");
+            }).click(function () {
+                //获取当前被点击的li，添加一个属性记录当前索引,同时删除其他的索引属性
+                $(this).attr("index", 10).siblings().removeAttr("index");
+            }).mouseleave(function () {
+                //未点击前离开所有的星星为空心，点击后鼠标离开时其及之前的星星都变为实心
+                $(".comment>li").text("☆");
+                $(".comment>li[index='10']").text("★").prevAll().text("★");
+
+            });
+        });
+    </script>
+</head>
+
+<body>
+<ul class="comment">
+    <li>☆</li>
+    <li>☆</li>
+    <li>☆</li>
+    <li>☆</li>
+    <li>☆</li>
+</ul>
+</body>
+
+</html>
